@@ -1,0 +1,20 @@
+{
+  "name": "laundary-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start" : "node index",
+    "test": "node test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Park-KwonSoo/When_does_it_Dry_If_I_Landary_Now.git"
+  },
+  "author": "Park_Kwon_Soo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Park-KwonSoo/When_does_it_Dry_If_I_Landary_Now/issues"
+  },
+  "homepage": "https://github.com/Park-KwonSoo/When_does_it_Dry_If_I_Landary_Now#readme"
+}
