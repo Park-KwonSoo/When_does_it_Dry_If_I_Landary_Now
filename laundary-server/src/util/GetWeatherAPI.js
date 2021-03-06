@@ -1,4 +1,4 @@
-const request = require('request');
+const axios = require('axios');
 
 /**
  * @param {*} URL 
@@ -6,7 +6,7 @@ const request = require('request');
  * @초단기예보조회 : getUltraSrtFcst
  * @동네예보조회 : getVilageFcst
  */ 
-exports.getAPI = function(URL, nx, ny) {
+exports.getAPI = async function(URL, nx, ny) {
     const { SERVICE_KEY } = process.env;
     let time;
 
@@ -29,14 +29,8 @@ exports.getAPI = function(URL, nx, ny) {
     queryParams += '&' + encodeURIComponent('nx') + '=' + encodeURIComponent(nx)
     queryParams += '&' + encodeURIComponent('ny') + '=' + encodeURIComponent(ny);
 
-    return new Promise((resolve) => {
-        request({ 
-            url : url + queryParams,
-            method : 'GET'
-        }, function(response, error, body) {
-            resolve(JSON.parse(body));
-        })
-    });
+    const result = await axios.get(`${url}${queryParams}`);
+    return result.data;
 }
 
 //초단기실황

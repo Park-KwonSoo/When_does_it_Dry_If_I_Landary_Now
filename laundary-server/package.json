@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start" : "node index",
+    "start": "node index",
     "test": "node test"
   },
   "repository": {
@@ -16,5 +16,11 @@
   "bugs": {
     "url": "https://github.com/Park-KwonSoo/When_does_it_Dry_If_I_Landary_Now/issues"
   },
-  "homepage": "https://github.com/Park-KwonSoo/When_does_it_Dry_If_I_Landary_Now#readme"
+  "homepage": "https://github.com/Park-KwonSoo/When_does_it_Dry_If_I_Landary_Now#readme",
+  "dependencies": {
+    "crypto-js": "^4.0.0",
+    "ip": "^1.1.5",
+    "local-ipv4-address": "0.0.2",
+    "public-ip": "^4.0.3"
+  }
 }
