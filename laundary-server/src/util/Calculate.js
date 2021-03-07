@@ -1,7 +1,6 @@
 const Time = require('../lib/Time');
 
 exports.calculate = async function(object) {
-    //toDo : Calculate Algorithm Develop
     return await calculating(object);
 }
 
