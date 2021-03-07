@@ -45,17 +45,17 @@ exports.whenDry = async(ctx) => {
             humidityForecast
         });
 
-        ctx.body = {
-            'Temperature_Now' : temperatureNow,
-            'Temperature_Today' : temperatureToday,
-            'Temperature_Forecast' : temperatureForecast,
-            'Humidity_Now' : humidityNow,
-            'Humidity_Today' : humidityToday,
-            'Humidity_Forecast' : humidityForecast,
-            'Location' : location
-        };
+        // ctx.body = {
+        //     'Temperature_Now' : temperatureNow,
+        //     'Temperature_Today' : temperatureToday,
+        //     'Temperature_Forecast' : temperatureForecast,
+        //     'Humidity_Now' : humidityNow,
+        //     'Humidity_Today' : humidityToday,
+        //     'Humidity_Forecast' : humidityForecast,
+        //     'Location' : location
+        // };
 
-        // ctx.body = calResult;
+        ctx.body = calResult;
 
     }   catch(e) {
         return ctx.throw(500, e);   
