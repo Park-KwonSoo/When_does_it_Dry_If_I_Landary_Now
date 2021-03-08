@@ -56,6 +56,7 @@ exports.whenDry = async(ctx) => {
         // };
 
         ctx.body = calResult;
+        console.log("Calculating Complete");
 
     }   catch(e) {
         return ctx.throw(500, e);   
