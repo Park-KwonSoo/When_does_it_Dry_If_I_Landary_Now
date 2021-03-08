@@ -36,6 +36,7 @@ exports.getLocation = async function() {
     }
 
     const result = await axios.get(`${hostName}${baseString}`, config);
+    console.log(result.data);
 
     const lon = result.data.geoLocation.long;
     const { lat } = result.data.geoLocation;
