@@ -102,7 +102,7 @@ const Button = styled.button `
     }
 `;
 
-const DryPossible = ({children, back, onClick}) => {
+const DryPossible = ({children, back, onClick, onChange, ...rest}) => {
     return (
         <Positioner>
             <Wrapper>
@@ -111,7 +111,7 @@ const DryPossible = ({children, back, onClick}) => {
                 </LeftPosition>
                 <CenterPosition>
                     <InputWrapper>
-                        <DateInput/>
+                        <DateInput onChange = {onChange} {...rest}/>
                         <Content>까지 가능할까?</Content>
                     </InputWrapper>
                     <Button onClick = {onClick}>
