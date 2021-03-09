@@ -20,13 +20,8 @@ exports.whenDry = async(ctx) => {
 //예상 날짜를 input으로 받고 그 시간 내에 가능한지 결과 출력
 exports.canDry = async(ctx) => {
     try {
-        let { Year, Month, date } = ctx.request.body;
-        if(Month.length === 1)
-            Month = '0'.concat(Month);
-        if(date.length === 1)
-            date = '0'.concat(date);
-
-        const inputTime = new Date(Year + '-' + Month + '-' + date);
+        const { Time } = ctx.request.body;
+        const inputTime = new Date(Time);
 
         let calTime = await calculateTime();
         if(calTime.Month.length === 1)
