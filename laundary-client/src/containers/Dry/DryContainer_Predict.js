@@ -16,6 +16,9 @@ function DryContainer_Predict () {
     const handleOnClick = () => {
         try {   
             dispatch(dryActions.calculateResult());
+            dispatch(dryActions.setError({
+                message : null
+            }));
         }   catch(e) {
             dispatch(dryActions.setError({
                 message : "알 수 없는 에러가 발생헀습니다"

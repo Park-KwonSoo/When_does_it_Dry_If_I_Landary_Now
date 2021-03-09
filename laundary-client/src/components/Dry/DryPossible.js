@@ -61,6 +61,19 @@ const DateInput = styled.input.attrs({
     color : ${oc.yellow[7]};
 `;
 
+const ContentBox = styled.div `
+    background : white;
+    border-radius : 10px;
+    border : transparent;
+
+    margin : 1rem auto;
+    padding : .5rem 5rem;
+
+    display : flex;
+    justify-content : center;
+    align-items : center;
+`;
+
 const Content = styled.div `
     font-size : 2.4rem;
 `;
@@ -114,8 +127,13 @@ const DryPossible = ({children, back, onClick, onChange, ...rest}) => {
                         <DateInput onChange = {onChange} {...rest}/>
                         <Content>까지 가능할까?</Content>
                     </InputWrapper>
+                    <ContentBox>
+                        <Content>
+                            {children}
+                        </Content>
+                    </ContentBox>
                     <Button onClick = {onClick}>
-                        {children}
+                        확인해보기
                     </Button>
                 </CenterPosition>
                 <RightPosition/>
