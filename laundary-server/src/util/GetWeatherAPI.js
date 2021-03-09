@@ -1,4 +1,5 @@
 const axios = require('axios');
+const { query } = require('express');
 const Time = require('../lib/Time');
 
 /**
@@ -30,6 +31,7 @@ exports.getAPI = async function(URL, nx, ny) {
     queryParams += '&' + encodeURIComponent('nx') + '=' + encodeURIComponent(nx)
     queryParams += '&' + encodeURIComponent('ny') + '=' + encodeURIComponent(ny);
 
-    const result = await axios.get(`${url}${queryParams}`);
+    const result = await axios.get(url + queryParams);
+
     return result.data;
 }
