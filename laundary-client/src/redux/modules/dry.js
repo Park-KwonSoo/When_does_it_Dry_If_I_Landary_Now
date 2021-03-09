@@ -4,10 +4,12 @@ import { pender } from 'redux-pender';
 import { Map } from 'immutable';
 
 //Action
+const INITIALIZE = 'dry/INITIALIZE';
 const SET_ERROR = 'dry/SET_ERROR';
 const CALCULATE_RESULT = 'dry/CALCULATE_RESULT';
 
 //Action Create
+export const initialize = createAction(INITIALIZE);
 export const setError = createAction(SET_ERROR);
 export const calculateResult = createAction(CALCULATE_RESULT, DryAPI.calculateResult);
 
@@ -19,6 +21,7 @@ const initialState = Map({
 
 //Reducer & Export
 export default handleActions({
+    [INITIALIZE] : () => initialState,
     [SET_ERROR] : (state, action) => {
         const { message } = action.payload;
         return state.set('error', message);
