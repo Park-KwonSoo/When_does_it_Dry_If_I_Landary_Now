@@ -2,10 +2,10 @@ import React  from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import * as dryActions from '../../redux/modules/dry';
-import { DryComponent } from '../../components/Dry';
+import { DryPredict } from '../../components/Dry';
 
 
-function DryContainer () {
+function DryContainer_Predict () {
     const dry = useSelector(state => state.dry);
     const result = dry.get('result');
     //toDo : const error = dry.get('error');
@@ -29,12 +29,15 @@ function DryContainer () {
     }
 
     return (
-        <DryComponent onClick = {calculate} back = {handleGoBack}>
-            {
-                result && <div>{"예상 시간 " + result}</div>
+        <>
+            {   result ?
+                <DryPredict onClick = {null} back = {handleGoBack} buttonName = {'확인'}>
+                    {"예상 시간 " + result}
+                </DryPredict> :
+                <DryPredict onClick = {calculate} back = {handleGoBack} buttonName = {'과연?'}/>
             }
-        </DryComponent>
+        </>
     )
 };
 
-export default DryContainer;
+export default DryContainer_Predict;

@@ -10,14 +10,13 @@ const Positioner = styled.div `
     top : 50%;
     left : 50%;
     transform : translate(-50%, -50%);
+
+    width : 100%;
 `;
 
 const Wrapper = styled.div `
     display : flex;
     align-items : center;
-
-    height : 100%;
-    width : 100%;
 `;
 
 const LeftPosition = styled.div `
@@ -25,7 +24,7 @@ const LeftPosition = styled.div `
 `;
 
 const CenterPosition = styled.div `
-    flex : 1;
+    flex : 10;
 `;
 
 const RightPosition = styled.div `
@@ -44,7 +43,7 @@ const BackButton = styled.button `
     width : 100px;
     height : 100px;
 
-    margin-right : 3rem;
+    margin-left : 3rem;
 
     &:hover {
         background : url(${backButton_yellow});
@@ -54,6 +53,8 @@ const BackButton = styled.button `
 
 const SelectButtonWrapper = styled.div `
     display : flex;
+    align-items : center;
+    justify-content : center;
 `;
 
 const SelectButton = styled.button `

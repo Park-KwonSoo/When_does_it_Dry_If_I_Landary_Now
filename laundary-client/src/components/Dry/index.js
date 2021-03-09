@@ -1,1 +1,2 @@
-export { default as DryComponent } from './DryComponent';
+export { default as DryPredict } from './DryPredict';
+export { default as DryPossible } from './DryPossible';

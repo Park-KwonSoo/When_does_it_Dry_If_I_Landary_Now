@@ -11,10 +11,16 @@ const Positioner = styled.div `
     top : 50%;
     left : 50%;
     transform : translate(-50%, -50%);
+
+    display : flex;
+    flex-direction : column;
+
+    width : 100%;
 `;
 
 const Wrapper = styled.div `
     display : flex;
+    justify-content : center;
     align-items : center;
 `;
 
@@ -23,7 +29,7 @@ const LeftPosition = styled.div `
 `;
 
 const CenterPosition = styled.div `
-    flex : 1;
+    flex : 10;
 `;
 
 const RightPosition = styled.div `
@@ -40,7 +46,7 @@ const BackButton = styled.button `
     border : transparent;
     border-radius : 10px;
 
-    margin-right : 3rem;
+    margin-left : 3rem;
 
     &:hover {
         background : url(${backButton_yellow});
@@ -51,9 +57,10 @@ const BackButton = styled.button `
 const ContentWrapper = styled.div `
     display : flex;
     flex-direction : column;
-    justify-content : center;
 
-    width : 550px;
+    justify-content : center;
+    padding : 0 0;
+    margin : 0 4rem;
 `;
 
 const Title = styled.div `
@@ -66,23 +73,28 @@ const Time  = styled.div `
     margin : 0rem auto;
 `;
 
+const ContentBox = styled.div `
+    background : white;
+    border-radius : 10px;
+    border : transparent;
+
+    margin : 1rem 0;
+
+    display : flex;
+    justify-content : center;
+    align-items : center;
+`;
+
 const Content = styled.div `
     font-size : 2rem;
-    margin : 1rem auto;
 
     background : white;
     color : ${oc.yellow[7]};
 
+    margin : 2rem auto;
+
     border-radius : 10px;
     border : transparent;
-
-    padding : .5rem 3rem;
-
-    height : 40px;
-    width : 400px;
-
-    display : flex;
-    justify-content : center;
 `;
 
 const Button = styled.button `
@@ -96,9 +108,10 @@ const Button = styled.button `
     cursor : pointer;
 
     border-radius : 10px;
-    border : 1px transparent;
+    border : transparent;
 
-    padding : .5rem;
+    padding : .5rem 4rem;
+    margin : 1rem auto;
 
     &:hover {
         background : ${oc.yellow[7]};
@@ -106,7 +119,7 @@ const Button = styled.button `
     }
 `;
 
-const DryComponent = ({onClick, back, children}) => {
+const DryPredict = ({onClick, back, children, buttonName}) => {
     return (
         <Positioner>
             <Wrapper>
@@ -122,20 +135,20 @@ const DryComponent = ({onClick, back, children}) => {
                             {"현재 시간 "} 
                             <Clock format = {"YYYY년 MM월 DD일 HH : mm"} ticking = {true}/>
                         </Time>
-                        <Content>
-                            {children}
-                        </Content>
+                        <ContentBox>
+                            <Content>
+                                {children}
+                            </Content>
+                        </ContentBox>
                         <Button onClick = {onClick}>
-                            과연?
+                            {buttonName}
                         </Button>
                     </ContentWrapper>
                 </CenterPosition>
-                <RightPosition>
-                    <div/>
-                </RightPosition>
+                <RightPosition/>
             </Wrapper>
         </Positioner>
     )
 }
 
-export default DryComponent;
+export default DryPredict;
