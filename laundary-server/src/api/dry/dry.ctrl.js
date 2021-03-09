@@ -58,7 +58,26 @@ exports.whenDry = async(ctx) => {
         let predictTime = new Date();
         predictTime.setHours(predictTime.getHours() + calResult);
 
-        ctx.body = predictTime;
+        const Year = String(predictTime.getFullYear());
+        const Month = String(predictTime.getMonth() + 1);
+        const date = String(predictTime.getDate());
+
+        let Hours = String(predictTime.getHours());
+        if(parseInt(Hours) < 10)
+            Hours = '0'.concat(Hours);
+        
+        let Minutes = String(predictTime.getMinutes());
+        if(parseInt(Minutes) < 10)
+            Minutes = '0'.concat(Minutes);
+        
+        
+        //result
+        ctx.body = Year + '년 '
+        + Month + '월 '
+        + date + '일 '
+        + Hours + ':'
+        + Minutes;
+
         console.log("Calculating Complete");
 
     }   catch(e) {
