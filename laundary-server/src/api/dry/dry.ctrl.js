@@ -55,7 +55,10 @@ exports.whenDry = async(ctx) => {
         //     'Location' : location
         // };
 
-        ctx.body = calResult;
+        let predictTime = new Date();
+        predictTime.setHours(predictTime.getHours() + calResult);
+
+        ctx.body = predictTime;
         console.log("Calculating Complete");
 
     }   catch(e) {
