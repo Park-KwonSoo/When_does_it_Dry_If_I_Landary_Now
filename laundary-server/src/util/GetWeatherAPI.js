@@ -31,6 +31,6 @@ exports.getAPI = async function(URL, nx, ny) {
     queryParams += '&' + encodeURIComponent('ny') + '=' + encodeURIComponent(ny);
 
     const result = await axios.get(url + queryParams);
-
+    
     return result.data;
 }
