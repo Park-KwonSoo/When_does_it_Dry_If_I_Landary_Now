@@ -11,13 +11,32 @@ function HomeContainer () {
 
     useEffect(() => {
         dispatch(baseActions.setHeaderHide());
+        dispatch(baseActions.setError({
+            message : null
+        }));
         return () => {
             dispatch(baseActions.setHeaderVisible());
         };
     }, [dispatch]);
 
     const handleClick = () => {
-        history.push('/main');
+        try {
+            navigator.geolocation.watchPosition((position) => {
+                const lon = position.coords.longitude;
+                const lat = position.coords.latitude;
+                dispatch(baseActions.setLocation({
+                    lon,
+                    lat
+                }));
+            });
+
+            history.push('/main');
+        }   catch (e) {
+            dispatch(baseActions.setError({
+                message : "알 수 없는 에러가 발생했습니다."
+            }));
+            console.log(e);
+        }
     }
 
     return (
