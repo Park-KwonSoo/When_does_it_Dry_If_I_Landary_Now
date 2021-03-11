@@ -11,8 +11,8 @@ function DryContainer_Predict () {
 
     const result = dry.get('result');
     const error = dry.get('error');
-    const lon = base.get(['location', 'lon']);
-    const lat = base.get(['location', 'lat']);
+    const lon = base.getIn(['location', 'lon']);
+    const lat = base.getIn(['location', 'lat']);
 
     const history = useHistory();
     const dispatch = useDispatch();
@@ -26,14 +26,16 @@ function DryContainer_Predict () {
     }, [dispatch]);
 
     const handleOnClick = () => {
-        try {   
+        try {
             dispatch(dryActions.calculateResult({
                 lon,
                 lat
             }));
+
             dispatch(dryActions.setError({
                 message : null
             }));
+            
         }   catch(e) {
             dispatch(dryActions.setError({
                 message : "알 수 없는 에러가 발생헀습니다"

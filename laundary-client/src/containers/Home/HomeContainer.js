@@ -29,6 +29,7 @@ function HomeContainer () {
                     lon,
                     lat
                 }));
+                
                 dispatch(baseActions.getMyLocation({
                     lon,
                     lat
