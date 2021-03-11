@@ -42,10 +42,10 @@ exports.canDry = async(ctx) => {
             + 'T' + calTime.Hours + ':' + calTime.Minutes
         );
         
-        let result = false;
+        let result = '불가능';
         //예상시간이 입력한 날짜보다 더 늦으면 시간안에 건조 됨
         if(isOkayTime <= inputTime)
-            result = true;
+            result = '가능';
 
         ctx.body = result;
 
