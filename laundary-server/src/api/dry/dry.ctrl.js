@@ -7,11 +7,15 @@ const getWeatherAPI = require('../../util/GetWeatherAPI');
 //빨래 예상 건조 시간을 출력
 exports.whenDry = async(ctx) => {
     try {
-        const result = await calculateTime();
+        const { lon, lat } = ctx.request.body;
+
+        const result = await calculateTime({
+            lon,
+            lat
+        });
+
         ctx.body = result;
-
-        console.log("Calculating Complete");
-
+        
     }   catch(e) {
         return ctx.throw(500, e);   
     }
@@ -20,10 +24,14 @@ exports.whenDry = async(ctx) => {
 //예상 날짜를 input으로 받고 그 시간 내에 가능한지 결과 출력
 exports.canDry = async(ctx) => {
     try {
-        const { Time } = ctx.request.body;
+        const { Time, lon, lat } = ctx.request.body;
         const inputTime = new Date(Time);
 
-        let calTime = await calculateTime();
+        let calTime = await calculateTime({
+            lon, 
+            lat
+        });
+
         if(calTime.Month.length === 1)
             calTime.Month = '0'.concat(calTime.Month);
         if(calTime.date.length === 1)
@@ -46,10 +54,9 @@ exports.canDry = async(ctx) => {
     }
 }
 
-const calculateTime = async() => {
+const calculateTime = async(position) => {
      //현재 위치의 (위도, 경도)를 바탕으로 nx, ny 값 구하기
-     const getMyLocate = await getLocation.getLocation();
-     const location = await getLocation.translateLocation(getMyLocate);
+     const location = await getLocation.translateLocation(position);
      const { nx, ny } = location;
 
      //기상청 API값을 각각 가져옴
