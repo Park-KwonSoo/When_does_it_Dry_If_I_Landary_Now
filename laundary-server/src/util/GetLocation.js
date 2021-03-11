@@ -1,54 +1,32 @@
-const CryptoJS = require('crypto-js');
 const axios = require('axios');
-const publicIP = require('public-ip');
 /**
- *  GeoLocation
- *  네이버 클라우드 플랫폼을 통해 IP -> Location으로 변환
+ *  네이버 Map API를 통해 좌표를 실제 주소로 변환
  */
-exports.getLocation = async function() {
-    const hostName = 'https://geolocation.apigw.ntruss.com';
-    const requestUrl = '/geolocation/v2/geoLocation';
+exports.getRealLocation = async function(object) {
+    const { lon, lat } = object;
 
-    const { ACCESS_KEY, SECRET_KEY  } = process.env;
+    const { CLIENT_ID, CLIENT_SECRET } = process.env;
 
-    const timeStamp = Math.floor(+new Date).toString();
+    let url = "https://naveropenapi.apigw.ntruss.com/map-reversegeocode/v2/gc?";
+    const coords = "coords=" + lon + "," + lat;
+    const output = "output=json";
 
-    const sortedSet = {};
-    sortedSet["ip"] = await getMyIP();
-    sortedSet["ext"] = "t";
-    sortedSet["responseFormatType"] = "json";
-
-    let queryString = Object.keys(sortedSet).reduce( (prev, curr)=>{
-        return prev + curr + '=' + sortedSet[curr] + '&';
-    }, "");
-
-    queryString = queryString.substr(0, queryString.length -1 );
-
-    const baseString = requestUrl + '?' + queryString;
-    const signature = makeSignature(SECRET_KEY, 'GET', baseString, timeStamp, ACCESS_KEY);
-
-    const config = { 
-        headers: {
-            'x-ncp-apigw-timestamp': timeStamp,
-            'x-ncp-iam-access-key' : ACCESS_KEY,
-            'x-ncp-apigw-signature-v2': signature
+    const config = {
+        headers : {
+            "X-NCP-APIGW-API-KEY-ID" : CLIENT_ID,
+            "X-NCP-APIGW-API-KEY" : CLIENT_SECRET
         }
-    }
-
-    const result = await axios.get(`${hostName}${baseString}`, config);
-    console.log(result.data);
-
-    const lon = result.data.geoLocation.long;
-    const { lat } = result.data.geoLocation;
-
-    return {
-        lon,
-        lat
     };
+    
+    url += coords + '&' + output;
+    
+    const result = await axios.get(url, config);
+
+    return result.data;
 }
 
-exports.translateLocation = function(Object) {
-    const { lon, lat } = Object;
+exports.translateLocation = function(object) {
+    const { lon, lat } = object;
 
     return transform(lon, lat);
 }
@@ -106,33 +84,4 @@ const transform = function(lon, lat) {
         nx,
         ny
     };
-}
-
-const makeSignature = function(secretKey, method, baseString, timeStamp, accessKey) {
-    const space = ' ';
-    const newLine = '\n';
-
-    let hmac = CryptoJS.algo.HMAC.create(CryptoJS.algo.SHA256, secretKey);
-
-    hmac.update(method);
-    hmac.update(space);
-    hmac.update(baseString);
-    hmac.update(newLine);
-    hmac.update(timeStamp);
-    hmac.update(newLine);
-    hmac.update(accessKey);
-    
-    const hash = hmac.finalize();
-
-    return hash.toString(CryptoJS.enc.Base64);
-}
-
-/*
-*   현재 접속중인 공인 IP를 받아옴
-*/
-const getMyIP = async function() {
-    //IPv4 주소를 받아온다.
-    const result = await publicIP.v4();
-
-    return result;
 }

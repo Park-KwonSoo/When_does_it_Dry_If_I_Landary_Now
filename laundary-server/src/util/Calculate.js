@@ -45,7 +45,7 @@ const calculating = function(object) {
 
     //TodayHumidity = 실황과 초단기예보의 습도값을 합친 array, 각 원소의 값은 1시간마다 측정되는 값이므로 해당 값 * (건조시간 알고리즘)을 적용
     TodayHumidity.forEach(function(value) {
-        defaultDryTime += .007 * value
+        defaultDryTime += .0000007 * Math.pow(value, 3);
     })
 
 
@@ -117,9 +117,9 @@ const calculating = function(object) {
     }
 
     humidityForecastValue.forEach(function(value) {
-        defaultDryTime += 3 * .007 * value
+        defaultDryTime += 3 * .0000007 * Math.pow(value, 3);
     });
 
-
+    console.log("예상 시간 : ", defaultDryTime);
     return parseInt(defaultDryTime);
 }
