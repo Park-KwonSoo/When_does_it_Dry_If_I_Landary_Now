@@ -1,6 +1,6 @@
 //초단기실황
 exports.getTimesNcst = function() {
-    const nowDate = new Date();
+    let nowDate = new Date();
 
     const year = String(nowDate.getFullYear());
     let month = nowDate.getMonth() + 1;
@@ -14,17 +14,24 @@ exports.getTimesNcst = function() {
     let baseDate = year;
     let baseTime = null;
 
+    if(hours < 10 && hours >= 0)
+        hours = '0' + String(hours)
+    else if (hours < 0) {
+        hours = '23';
+        nowDate.setDate(nowDate.getDate() - 1);
+        month = nowDate.getMonth() + 1;
+        date = nowDate.getDate();
+    }
+
     if(month < 10)
         month = '0' + String(month);
     
     if(date < 10) 
         date = '0' + String(date);
 
-    if(hours < 10)
-        hours = '0' + String(hours)
 
     baseDate += String(month) + String(date);
-    baseTime =  hours + '00';
+    baseTime = hours + '00';
 
     return {
         baseDate,
@@ -34,7 +41,7 @@ exports.getTimesNcst = function() {
 
 //초단기예보
 exports.getTimesSrtFcst = function() {
-    const nowDate = new Date();
+    let nowDate = new Date();
 
     const year = String(nowDate.getFullYear());
     let month = nowDate.getMonth() + 1;
@@ -49,6 +56,15 @@ exports.getTimesSrtFcst = function() {
     let baseDate = year;
     let baseTime = null;
 
+    if(hours < 10 && hours >= 0)
+        hours = '0' + String(hours)
+    else if (hours < 0) {
+        hours = '23';
+        nowDate.setDate(nowDate.getDate() - 1);
+        month = nowDate.getMonth() + 1;
+        date = nowDate.getDate();
+    }
+
     if(month < 10)
         month = '0' + String(month);
   
@@ -56,8 +72,6 @@ exports.getTimesSrtFcst = function() {
     if(date < 10) 
         date = '0' + String(date);
 
-    if(hours < 10)
-        hours = '0' + String(hours)
 
     baseDate += String(month) + String(date);
     baseTime =  hours + '30';
