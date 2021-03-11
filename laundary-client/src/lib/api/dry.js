@@ -1,4 +1,4 @@
 import client from './client';
 
-export const calculateResult = () => client.get('/api/dry/whendry');
-export const isPossible = ({Time}) => client.post('/api/dry/candry', { Time });
+export const calculateResult = ({lon, lat}) => client.post('/api/dry/whendry', {lon, lat});
+export const isPossible = ({Time, lon, lat}) => client.post('/api/dry/candry', {Time, lon, lat});
