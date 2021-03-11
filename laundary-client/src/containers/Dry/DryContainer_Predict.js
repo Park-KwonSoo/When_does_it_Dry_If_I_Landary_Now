@@ -1,4 +1,4 @@
-import React  from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import * as dryActions from '../../redux/modules/dry';
@@ -7,15 +7,30 @@ import { DryPredict } from '../../components/Dry';
 
 function DryContainer_Predict () {
     const dry = useSelector(state => state.dry);
+    const base = useSelector(state => state.base);
+
     const result = dry.get('result');
     const error = dry.get('error');
+    const lon = base.get(['location', 'lon']);
+    const lat = base.get(['location', 'lat']);
 
     const history = useHistory();
     const dispatch = useDispatch();
 
+    useEffect (() => {
+        return () => {
+            dispatch(dryActions.setError({
+                message : null
+            }));
+        }
+    }, [dispatch]);
+
     const handleOnClick = () => {
         try {   
-            dispatch(dryActions.calculateResult());
+            dispatch(dryActions.calculateResult({
+                lon,
+                lat
+            }));
             dispatch(dryActions.setError({
                 message : null
             }));

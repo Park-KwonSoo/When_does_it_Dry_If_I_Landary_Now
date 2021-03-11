@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
@@ -8,12 +8,26 @@ import { DryPossible } from '../../components/Dry';
 
 function DryContainter_Deadline () {
     const dry = useSelector(state => state.dry);
+    const base = useSelector(state => state.base);
+   
     const possible = dry.get('possible');
     const dateInfo = dry.get('dateInfo');
     const error = dry.get('error');
 
+    const lon = base.getIn(['location', 'lon']);
+    const lat = base.getIn(['location', 'lat']);
+
+
     const history = useHistory();
     const dispatch = useDispatch();
+
+    useEffect (() => {
+        return () => {
+            dispatch(dryActions.setError({
+                message : null
+            }))
+        };
+    }, [dispatch]);
 
     const handleChangeInfo = (e) => {
         const { name, value } = e.target;
@@ -27,7 +41,9 @@ function DryContainter_Deadline () {
         try {
             const Time = dateInfo.value;
             dispatch(dryActions.isPossible({
-                Time
+                Time,
+                lon,
+                lat
             }));
             dispatch(dryActions.setError({
                 message : null

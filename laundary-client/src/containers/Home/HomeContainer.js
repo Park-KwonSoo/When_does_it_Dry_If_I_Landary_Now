@@ -1,13 +1,10 @@
 import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { HomeComponent } from '../../components/Home';
 import * as baseActions from '../../redux/modules/base';
 
 function HomeContainer () {
-    const base = useSelector(state => state.base);
-    const lon = base.getIn(['location', 'lon']);
-    const lat = base.getIn(['location', 'lat']);
 
     const history = useHistory();
     const dispatch = useDispatch();
@@ -25,15 +22,18 @@ function HomeContainer () {
     const handleClick = async () => {
         try {
             navigator.geolocation.watchPosition((position) => {
+                const lon = position.coords.longitude;
+                const lat = position.coords.latitude;
+                
                 dispatch(baseActions.setLocation({
-                    'lon' : position.coords.longitude,
-                    'lat' : position.coords.latitude
+                    lon,
+                    lat
                 }));
-            });
-            
-            dispatch(baseActions.getMyLocation({
-                lon, lat
-            }));
+                dispatch(baseActions.getMyLocation({
+                    lon,
+                    lat
+                }));
+            })
 
             history.push('/main');
         }   catch (e) {

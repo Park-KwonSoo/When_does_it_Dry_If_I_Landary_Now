@@ -7,6 +7,7 @@ import { Header } from './components/Base';
 function App() {
 
   const base = useSelector(state => state.base);
+  const address = base.getIn(['location', 'address']);
   const headerVisible = base.get('headerVisible');
 
   const history = useHistory();
@@ -18,7 +19,8 @@ function App() {
   return (
     <>
       {
-        headerVisible && <Header onClick = {handleGoHome}>지금 빨면 언제 말라?</Header>
+        headerVisible && <Header onClick = {handleGoHome}
+        address = {address}>지금 빨면 언제 말라?</Header>
       }
       <Route exact path = '/' component = { Home }/>
       <Route path = '/main' component = { Main }/>

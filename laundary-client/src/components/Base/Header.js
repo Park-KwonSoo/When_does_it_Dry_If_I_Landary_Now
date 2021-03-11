@@ -1,6 +1,8 @@
 import React from 'react';
 import oc from 'open-color';
 import styled from 'styled-components';
+import home_yellow from '../../image/home_yellow.png';
+import home_black from '../../image/home_black.png';
 
 const Wrapper = styled.div `
     background : white;
@@ -9,11 +11,14 @@ const Wrapper = styled.div `
     display : flex;
     align-items : center;
 
-    padding-left : 3rem;
+    padding-left : 1rem;
+    padding-right : 1rem;
 `;
 
 const LeftPosition = styled.div `
-    flex : 3;
+    flex : 4;
+
+    display : flex;
 `;
 
 const CenterPosition = styled.div `
@@ -21,45 +26,52 @@ const CenterPosition = styled.div `
 `;
 
 const RightPosition = styled.div `
-    flex : 1;
+    flex : 4;
 `;
 
 const Title = styled.div `
     font-size : 2.4rem;
     color : ${oc.yellow[7]};
+
+    margin-left :1.5rem;
 `;
 
 const GoHomeButton = styled.button `
-    background : white;
-    color : ${oc.yellow[7]};
-    border : 2px solid;
-    border-radius : 8px;
+    background : url(${home_yellow});
+    background-size : cover;
+
+    height : 2.6rem;
+    width : 2.6rem;
+
+    border : transparent;
+
     cursor : pointer;
-
-    padding : .3rem 2rem;
-
-    font-family : Jua;
-    font-size : 1.5rem;
     
     &:hover {
-        background : ${oc.yellow[7]};
-        color : white;
+        background : url(${home_black});
+        background-size : cover;
     }
 `;
 
-const Header = ({children, onClick}) => {
+const Address = styled.div `
+    font-size : 1.6rem;
+    font-family : Jua;
+`;
+
+const Header = ({children, onClick, address}) => {
     return (
         <Wrapper>
             <LeftPosition>
+                <GoHomeButton onClick = {onClick}/>
                 <Title>
                     {children}
                 </Title>
             </LeftPosition>
             <CenterPosition/>
             <RightPosition>
-                <GoHomeButton onClick = {onClick}>
-                    홈으로
-                </GoHomeButton>
+                <Address>
+                    {"현재 위치 : " + address}
+                </Address>
             </RightPosition>
         </Wrapper>
     )

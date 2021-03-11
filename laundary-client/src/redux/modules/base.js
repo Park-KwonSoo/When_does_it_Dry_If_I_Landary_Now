@@ -24,7 +24,7 @@ const initialState = Map({
     location : Map({
         lon : null, //경도
         lat : null,  //위도
-        address : null
+        address : "알 수 없음"
     })
 });
 
