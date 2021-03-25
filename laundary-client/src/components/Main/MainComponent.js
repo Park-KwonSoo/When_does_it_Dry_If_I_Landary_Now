@@ -3,7 +3,7 @@ import oc from 'open-color';
 import styled from 'styled-components';
 
 import backButton_white from '../../image/backButton_white.png'
-import backButton_yellow from '../../image/backButton_yellow.png';
+import backButton_black from '../../image/backButton_black.png';
 
 const Positioner = styled.div `
     position : absolute;
@@ -46,7 +46,7 @@ const BackButton = styled.button `
     margin-left : 3rem;
 
     &:hover {
-        background : url(${backButton_yellow});
+        background : url(${backButton_black});
         background-size : cover;
     }
 `;

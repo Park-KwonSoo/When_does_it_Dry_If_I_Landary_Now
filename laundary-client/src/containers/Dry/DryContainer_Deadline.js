@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 
 import * as dryActions from '../../redux/modules/dry';
 import { DryPossible } from '../../components/Dry';
+import { Error } from '../../components/Base';
 
 
 function DryContainter_Deadline () {
@@ -25,7 +26,9 @@ function DryContainter_Deadline () {
         return () => {
             dispatch(dryActions.setError({
                 message : null
-            }))
+            }));
+
+            dispatch(dryActions.isPossibleInitialize());
         };
     }, [dispatch]);
 
@@ -49,10 +52,10 @@ function DryContainter_Deadline () {
             dispatch(dryActions.setError({
                 message : null
             }));
-            
+
         }   catch(e) {
             dispatch(dryActions.setError({
-                message : '알 수 없는 에러가 발생했습니다'
+                message : '날짜를 입력해야 합니다.'
             }));
             console.log(e);
         }
@@ -67,12 +70,12 @@ function DryContainter_Deadline () {
             <DryPossible back = {handleGoBack} onClick = {handleOnClick} onChange = {handleChangeInfo} name = 'Time'>
                 {
                     possible ? 
-                    <div>가능</div> : <div>불가능</div>
+                    <div>{possible}</div> : <div></div>
                 }
             </DryPossible>
             {
-                error && <div>{error}</div>
-            }
+                error && <Error visible = {true}>{error}</Error>
+            }  
         </>
     )
 }

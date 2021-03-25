@@ -37,8 +37,8 @@ export default handleActions({
     [SET_HEADER_VISIBLE] : (state) => state.set('headerVisible', true),
     [SET_HEADER_HIDE] : (state) => state.set('headerVisible', false),
     [SET_LOCATION] : (state, action) => {
-        const { lon, lat } = action.payload;
-        return state.setIn(['location', 'lon'], lon).setIn(['location', 'lat'], lat);
+        const { lon, lat, address } = action.payload;
+        return state.setIn(['location', 'lon'], lon).setIn(['location', 'lat'], lat).setIn(['location', 'address'], address);
     },
     ...pender ({
         type : GET_MY_LOCATION,

@@ -22,6 +22,8 @@ function DryContainer_Predict () {
             dispatch(dryActions.setError({
                 message : null
             }));
+
+            dispatch(dryActions.initializeCalculate());
         }
     }, [dispatch]);
 
@@ -35,7 +37,7 @@ function DryContainer_Predict () {
             dispatch(dryActions.setError({
                 message : null
             }));
-            
+
         }   catch(e) {
             dispatch(dryActions.setError({
                 message : "알 수 없는 에러가 발생헀습니다"
@@ -44,6 +46,10 @@ function DryContainer_Predict () {
         }
     };
 
+    const handleOnOkay = () => {
+        alert('확인');
+    }
+
     const handleGoBack = () => {
         history.push('/main')
     }
@@ -51,14 +57,14 @@ function DryContainer_Predict () {
     return (
         <>
             {   result ?
-                <DryPredict onClick = {null} back = {handleGoBack} buttonName = {'확인'}>
+                <DryPredict onClick = {handleOnOkay} back = {handleGoBack} buttonName = {'확인'}>
                     {"예상 시간 " + result.Year + '년 ' + result.Month + '월 ' + result.date + '일 '
                     + ' ' + result.Hours + ' : ' + result.Minutes}
+                    {
+                        error && <div>{error}</div>
+                    }
                 </DryPredict> :
                 <DryPredict onClick = {handleOnClick} back = {handleGoBack} buttonName = {'과연?'}/>
-            }
-            {
-                error && <div>{error}</div>
             }
         </>
     )

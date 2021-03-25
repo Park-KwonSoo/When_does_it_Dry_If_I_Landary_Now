@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { HomeComponent } from '../../components/Home';
 import * as baseActions from '../../redux/modules/base';
+import storage from '../../lib/storage';
 
 function HomeContainer () {
+    const base = useSelector(state => state.base);
 
     const history = useHistory();
     const dispatch = useDispatch();
@@ -19,8 +21,16 @@ function HomeContainer () {
         };
     }, [dispatch]);
 
-    const handleClick = async () => {
+    const handleClick = () => {
         try {
+            if(!navigator.geolocation) {
+                dispatch(baseActions.setError({
+                    message : "브라우저에서 위치를 읽어 올 수 없습니다."
+                }));
+                
+                return;
+            }
+
             navigator.geolocation.watchPosition((position) => {
                 const lon = position.coords.longitude;
                 const lat = position.coords.latitude;
@@ -34,8 +44,13 @@ function HomeContainer () {
                     lon,
                     lat
                 }));
+            }, (error) => {
+                console.log(error);
             })
 
+            const location = base.get('location');
+            storage.set('location', location);
+            
             history.push('/main');
         }   catch (e) {
             dispatch(baseActions.setError({
@@ -46,7 +61,7 @@ function HomeContainer () {
     }
 
     return (
-        <HomeComponent onClick = {handleClick}>
+         <HomeComponent onClick = {handleClick}>
             지금 빨면
             <br></br>
             언제 말라?
