@@ -55,7 +55,7 @@ function DryContainter_Deadline () {
 
         }   catch(e) {
             dispatch(dryActions.setError({
-                message : '날짜를 입력해야 합니다.'
+                message : '올바른 날짜를 입력해야 합니다.'
             }));
             console.log(e);
         }
@@ -72,10 +72,10 @@ function DryContainter_Deadline () {
                     possible ? 
                     <div>{possible}</div> : <div></div>
                 }
+                {
+                    error && <Error>{error}</Error>
+                }  
             </DryPossible>
-            {
-                error && <Error visible = {true}>{error}</Error>
-            }  
         </>
     )
 }

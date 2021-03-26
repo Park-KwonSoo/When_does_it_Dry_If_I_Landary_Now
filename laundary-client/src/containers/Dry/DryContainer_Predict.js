@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import * as dryActions from '../../redux/modules/dry';
 import { DryPredict } from '../../components/Dry';
+import { Error } from '../../components/Base';
 
 
 function DryContainer_Predict () {
@@ -61,7 +62,7 @@ function DryContainer_Predict () {
                     {"예상 시간 " + result.Year + '년 ' + result.Month + '월 ' + result.date + '일 '
                     + ' ' + result.Hours + ' : ' + result.Minutes}
                     {
-                        error && <div>{error}</div>
+                        error && <Error>{error}</Error>
                     }
                 </DryPredict> :
                 <DryPredict onClick = {handleOnClick} back = {handleGoBack} buttonName = {'과연?'}/>
