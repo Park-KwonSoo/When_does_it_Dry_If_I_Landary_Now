@@ -104,33 +104,35 @@ const calculateTime = async(position) => {
      //     'Location' : location
      // };
 
-     let predictTime = new Date();
-     predictTime.setHours(predictTime.getHours() + calResult);
+     if(calResult > 0) {
+        let predictTime = new Date();
+        predictTime.setHours(predictTime.getHours() + calResult);
 
-     const Year = String(predictTime.getFullYear());
-     const Month = String(predictTime.getMonth() + 1);
-     const date = String(predictTime.getDate());
+        const Year = String(predictTime.getFullYear());
+        const Month = String(predictTime.getMonth() + 1);
+        const date = String(predictTime.getDate());
 
-     let Hours = String(predictTime.getHours());
-     if(parseInt(Hours) < 10)
-         Hours = '0'.concat(Hours);
-     
-     let Minutes = String(predictTime.getMinutes());
-     if(parseInt(Minutes) < 10)
-         Minutes = '0'.concat(Minutes);
-     
-     //result
-     // ctx.body = {Year + '년 '
-     // + Month + '월 '
-     // + date + '일 '
-     // + Hours + ':'
-     // + Minutes;}
+        let Hours = String(predictTime.getHours());
+        if(parseInt(Hours) < 10)
+            Hours = '0'.concat(Hours);
+        
+        let Minutes = String(predictTime.getMinutes());
+        if(parseInt(Minutes) < 10)
+            Minutes = '0'.concat(Minutes);
+        
+        //result
+        // ctx.body = {Year + '년 '
+        // + Month + '월 '
+        // + date + '일 '
+        // + Hours + ':'
+        // + Minutes;}
 
-     return {
-         Year,
-         Month,
-         date,
-         Hours,
-         Minutes
-     };
+        return {
+            Year,
+            Month,
+            date,
+            Hours,
+            Minutes
+        };
+    } else  return "error";
 };
