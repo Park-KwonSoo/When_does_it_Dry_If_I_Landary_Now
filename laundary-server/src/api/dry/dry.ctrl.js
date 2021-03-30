@@ -32,22 +32,24 @@ exports.canDry = async(ctx) => {
             lat
         });
 
-        if(calTime.Month.length === 1)
-            calTime.Month = '0'.concat(calTime.Month);
-        if(calTime.date.length === 1)
-            calTime.date = '0'.concat(calTime.date);
+        if(calTime != "error") {
+            if(calTime.Month.length === 1)
+                calTime.Month = '0'.concat(calTime.Month);
+            if(calTime.date.length === 1)
+                calTime.date = '0'.concat(calTime.date);
 
-        const isOkayTime = new Date(
-            calTime.Year + '-' + calTime.Month + '-' + calTime.date
-            + 'T' + calTime.Hours + ':' + calTime.Minutes
-        );
-        
-        let result = '불가능';
-        //예상시간이 입력한 날짜보다 더 늦으면 시간안에 건조 됨
-        if(isOkayTime <= inputTime)
-            result = '가능';
+            const isOkayTime = new Date(
+                calTime.Year + '-' + calTime.Month + '-' + calTime.date
+                + 'T' + calTime.Hours + ':' + calTime.Minutes
+            );
+            
+            let result = '불가능';
+            //예상시간이 입력한 날짜보다 더 늦으면 시간안에 건조 됨
+            if(isOkayTime <= inputTime)
+                result = '가능';
 
-        ctx.body = result;
+            ctx.body = result;
+        } else ctx.body = calTime;
 
     }   catch(e) {
         return ctx.throw(500, e);
