@@ -14,8 +14,8 @@ const calculating = function(object) {
     } = object;
 
 
-    //최적의 마르는 시간은 36시간이라 가정, 단위 = Hours
-    let defaultDryTime = 36;
+    //최적의 마르는 시간은 12시간이라 가정, 단위 = Hours
+    let defaultDryTime = 12;
 
     //지금 시간의 초단기실황, 초단기에보의 온도를 받아와서 계산한다.
     const TodayTemperature = [];
