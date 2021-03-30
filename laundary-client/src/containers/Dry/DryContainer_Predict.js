@@ -59,8 +59,15 @@ function DryContainer_Predict () {
         <>
             {   result ?
                 <DryPredict onClick = {handleOnOkay} back = {handleGoBack} buttonName = {'확인'}>
-                    {"예상 시간 " + result.Year + '년 ' + result.Month + '월 ' + result.date + '일 '
-                    + ' ' + result.Hours + ' : ' + result.Minutes}
+                    {
+                        result !== "error" ? 
+                        <>
+                            {
+                                "예상 시간 " + result.Year + '년 ' + result.Month + '월 ' + result.date + '일 '
+                                + ' ' + result.Hours + ' : ' + result.Minutes
+                            } 
+                        </> : <Error>{result}</Error>
+                    }
                     {
                         error && <Error>{error}</Error>
                     }

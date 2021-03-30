@@ -32,22 +32,24 @@ exports.canDry = async(ctx) => {
             lat
         });
 
-        if(calTime.Month.length === 1)
-            calTime.Month = '0'.concat(calTime.Month);
-        if(calTime.date.length === 1)
-            calTime.date = '0'.concat(calTime.date);
+        if(calTime != "error") {
+            if(calTime.Month.length === 1)
+                calTime.Month = '0'.concat(calTime.Month);
+            if(calTime.date.length === 1)
+                calTime.date = '0'.concat(calTime.date);
 
-        const isOkayTime = new Date(
-            calTime.Year + '-' + calTime.Month + '-' + calTime.date
-            + 'T' + calTime.Hours + ':' + calTime.Minutes
-        );
-        
-        let result = '불가능';
-        //예상시간이 입력한 날짜보다 더 늦으면 시간안에 건조 됨
-        if(isOkayTime <= inputTime)
-            result = '가능';
+            const isOkayTime = new Date(
+                calTime.Year + '-' + calTime.Month + '-' + calTime.date
+                + 'T' + calTime.Hours + ':' + calTime.Minutes
+            );
+            
+            let result = '불가능';
+            //예상시간이 입력한 날짜보다 더 늦으면 시간안에 건조 됨
+            if(isOkayTime <= inputTime)
+                result = '가능';
 
-        ctx.body = result;
+            ctx.body = result;
+        } else ctx.body = calTime;
 
     }   catch(e) {
         return ctx.throw(500, e);
@@ -104,33 +106,35 @@ const calculateTime = async(position) => {
      //     'Location' : location
      // };
 
-     let predictTime = new Date();
-     predictTime.setHours(predictTime.getHours() + calResult);
+     if(calResult > 0) {
+        let predictTime = new Date();
+        predictTime.setHours(predictTime.getHours() + calResult);
 
-     const Year = String(predictTime.getFullYear());
-     const Month = String(predictTime.getMonth() + 1);
-     const date = String(predictTime.getDate());
+        const Year = String(predictTime.getFullYear());
+        const Month = String(predictTime.getMonth() + 1);
+        const date = String(predictTime.getDate());
 
-     let Hours = String(predictTime.getHours());
-     if(parseInt(Hours) < 10)
-         Hours = '0'.concat(Hours);
-     
-     let Minutes = String(predictTime.getMinutes());
-     if(parseInt(Minutes) < 10)
-         Minutes = '0'.concat(Minutes);
-     
-     //result
-     // ctx.body = {Year + '년 '
-     // + Month + '월 '
-     // + date + '일 '
-     // + Hours + ':'
-     // + Minutes;}
+        let Hours = String(predictTime.getHours());
+        if(parseInt(Hours) < 10)
+            Hours = '0'.concat(Hours);
+        
+        let Minutes = String(predictTime.getMinutes());
+        if(parseInt(Minutes) < 10)
+            Minutes = '0'.concat(Minutes);
+        
+        //result
+        // ctx.body = {Year + '년 '
+        // + Month + '월 '
+        // + date + '일 '
+        // + Hours + ':'
+        // + Minutes;}
 
-     return {
-         Year,
-         Month,
-         date,
-         Hours,
-         Minutes
-     };
+        return {
+            Year,
+            Month,
+            date,
+            Hours,
+            Minutes
+        };
+    } else  return "error";
 };
